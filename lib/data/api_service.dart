@@ -15,7 +15,7 @@ class ApiService {
       final response =
           await client.get(Uri.parse('https://equran.id/api/surat'));
       return Right(List<SurahModel>.from(
-              jsonDecode(response.body).map((x) => SurahModel.fromJson(x)))
+              jsonDecode(response.body).map((x) => SurahModel.fromMap(x)))
           .toList());
     } catch (e) {
       return Left(e.toString());
@@ -27,7 +27,7 @@ class ApiService {
     try {
       final response = await client
           .get(Uri.parse('https://equran.id/api/surat/$surahNumber'));
-      return Right(SurahDetailModel.fromJson(jsonDecode(response.body)));
+      return Right(SurahDetailModel.fromMap(jsonDecode(response.body)));
     } catch (e) {
       return Left(e.toString());
     }

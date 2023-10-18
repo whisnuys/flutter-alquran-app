@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ahlul_quran_app/cubit/surah/surah_cubit.dart';
+import 'package:flutter_ahlul_quran_app/cubit/verse/verse_cubit.dart';
+import 'package:flutter_ahlul_quran_app/data/api_service.dart';
 import 'package:flutter_ahlul_quran_app/ui/home_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -17,13 +22,28 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-          return MaterialApp(
-            title: 'Ahlul Quran App',
-            theme: ThemeData(
-              primarySwatch: Colors.brown,
-              fontFamily: GoogleFonts.poppins().fontFamily,
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => SurahCubit(
+                  ApiService(client: http.Client()),
+                ),
+              ),
+              BlocProvider(
+                create: (context) => VerseCubit(
+                  ApiService(client: http.Client()),
+                ),
+              ),
+            ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Ahlul Quran App',
+              theme: ThemeData(
+                primarySwatch: Colors.brown,
+                fontFamily: GoogleFonts.poppins().fontFamily,
+              ),
+              home: const HomePage(),
             ),
-            home: const HomePage(),
           );
         });
   }

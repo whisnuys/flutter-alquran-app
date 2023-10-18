@@ -51,7 +51,7 @@ class SurahDetailModel {
         suratSelanjutnya: json["surat_selanjutnya"] == null
             ? null
             : SuratSelanjutnya.fromMap(json["surat_selanjutnya"]),
-        suratSebelumnya: json["surat_sebelumnya"],
+        // suratSebelumnya: json["surat_sebelumnya"],
       );
 
   Map<String, dynamic> toMap() => {
