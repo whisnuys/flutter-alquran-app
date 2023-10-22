@@ -3,6 +3,7 @@ import 'package:flutter_ahlul_quran_app/cubit/surah/surah_cubit.dart';
 import 'package:flutter_ahlul_quran_app/cubit/verse/verse_cubit.dart';
 import 'package:flutter_ahlul_quran_app/data/api_service.dart';
 import 'package:flutter_ahlul_quran_app/ui/home_page.dart';
+import 'package:flutter_ahlul_quran_app/ui/splash_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,7 +43,10 @@ class MyApp extends StatelessWidget {
                 primarySwatch: Colors.brown,
                 fontFamily: GoogleFonts.poppins().fontFamily,
               ),
-              home: const HomePage(),
+              home: const SplashPage(),
+              routes: {
+                '/home': (context) => const HomePage(),
+              },
             ),
           );
         });
