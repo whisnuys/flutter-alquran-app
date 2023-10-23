@@ -12,5 +12,5 @@ Flutter Tutorial for Design layouting and integration data from API purpose for 
 
 | Home                                |
 | ----------------------------------- |
-| <img src="image1.png" width="800"/> |
-| <img src="image2.png" width="800"/> |
+| <img src="image1.png" width="300"/> |
+| <img src="image2.png" width="300"/> |
