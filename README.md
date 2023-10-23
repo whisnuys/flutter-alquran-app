@@ -10,7 +10,6 @@ Flutter Tutorial for Design layouting and integration data from API purpose for 
 
 ## ScreenShot
 
-| Home                                |
-| ----------------------------------- |
-| <img src="image1.png" width="300"/> |
-| <img src="image2.png" width="300"/> |
+| Home                                                                    |
+| ----------------------------------------------------------------------- |
+| <img src="image1.png" width="300"/> <img src="image2.png" width="300"/> |
