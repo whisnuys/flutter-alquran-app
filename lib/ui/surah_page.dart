@@ -37,25 +37,15 @@ class _SurahPageState extends State<SurahPage> {
                 flexibleSpace: FlexibleSpaceBar(
                   expandedTitleScale: 1,
                   centerTitle: false,
-                  titlePadding: EdgeInsets.only(left: 24.w, right: 24.w),
+                  titlePadding:
+                      EdgeInsets.only(left: 24.w, right: 24.w, top: 10.h),
                   title: ListView(
                     children: [
                       Text(
                         'Assalamualaikum',
                         style: TextStyle(
-                          fontSize: 12.sp,
-                          color: AppColors.grey,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 4.h,
-                      ),
-                      Text(
-                        'Whisnu',
-                        style: TextStyle(
                           fontSize: 18.sp,
-                          color: AppColors.black,
+                          color: AppColors.primary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
