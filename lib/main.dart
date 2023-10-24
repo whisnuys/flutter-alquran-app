@@ -4,6 +4,7 @@ import 'package:flutter_ahlul_quran_app/cubit/verse/verse_cubit.dart';
 import 'package:flutter_ahlul_quran_app/data/api_service.dart';
 import 'package:flutter_ahlul_quran_app/ui/home_page.dart';
 import 'package:flutter_ahlul_quran_app/ui/splash_page.dart';
+import 'package:flutter_ahlul_quran_app/ui/surah_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,36 +20,38 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(360, 690),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (context, child) {
-          return MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => SurahCubit(
-                  ApiService(client: http.Client()),
-                ),
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => SurahCubit(
+                ApiService(client: http.Client()),
               ),
-              BlocProvider(
-                create: (context) => VerseCubit(
-                  ApiService(client: http.Client()),
-                ),
-              ),
-            ],
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Ahlul Quran App',
-              theme: ThemeData(
-                primarySwatch: Colors.brown,
-                fontFamily: GoogleFonts.poppins().fontFamily,
-              ),
-              home: const SplashPage(),
-              routes: {
-                '/home': (context) => const HomePage(),
-              },
             ),
-          );
-        });
+            BlocProvider(
+              create: (context) => VerseCubit(
+                ApiService(client: http.Client()),
+              ),
+            ),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Ahlul Quran App',
+            theme: ThemeData(
+              primarySwatch: Colors.brown,
+              fontFamily: GoogleFonts.poppins().fontFamily,
+            ),
+            home: const SplashPage(),
+            routes: {
+              '/home': (context) => const HomePage(),
+              '/surah': (context) => const SurahPage(),
+            },
+          ),
+        );
+      },
+    );
   }
 }
