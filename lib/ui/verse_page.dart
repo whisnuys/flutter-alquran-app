@@ -53,7 +53,7 @@ class _VersePageState extends State<VersePage> {
                           Container(
                             margin: EdgeInsets.only(left: 20.w, top: 1.h),
                             child: Text(
-                              "${state.detail.namaLatin}",
+                              state.detail.namaLatin,
                               style: TextStyle(
                                 fontSize: 20.sp,
                                 color: AppColors.primary,
@@ -74,10 +74,11 @@ class _VersePageState extends State<VersePage> {
                               children: [
                                 SizedBox(height: 20.h),
                                 Text(
-                                  "${state.detail.arti}",
+                                  state.detail.arti,
                                   style: TextStyle(
                                     fontSize: 24.sp,
                                     fontWeight: FontWeight.w600,
+                                    color: AppColors.white,
                                   ),
                                 ),
                                 SizedBox(height: 8.h),
@@ -89,10 +90,11 @@ class _VersePageState extends State<VersePage> {
                                 ),
                                 SizedBox(height: 8.h),
                                 Text(
-                                  "${state.detail.tempatTurun!.toUpperCase()} - ${state.detail.jumlahAyat} Ayat",
+                                  "${state.detail.tempatTurun.toUpperCase()} - ${state.detail.jumlahAyat.toString()} Ayat",
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w600,
+                                    color: AppColors.white,
                                   ),
                                 ),
                               ],
@@ -107,7 +109,7 @@ class _VersePageState extends State<VersePage> {
                       controller: scrollController,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        final verse = state.detail.ayat![index];
+                        final verse = state.detail.ayat[index];
                         return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.w),
                           child: ListTile(
@@ -136,7 +138,7 @@ class _VersePageState extends State<VersePage> {
                                       CircleAvatar(
                                         backgroundColor: AppColors.primary,
                                         child: Text(
-                                          '${verse.nomor}',
+                                          '${verse.nomorAyat}',
                                           style: const TextStyle(
                                               color: AppColors.white),
                                         ),
@@ -150,7 +152,7 @@ class _VersePageState extends State<VersePage> {
                                 ),
                                 SizedBox(height: 18.h),
                                 Text(
-                                  '${verse.ar}',
+                                  verse.teksArab,
                                   textAlign: TextAlign.right,
                                   style: const TextStyle(
                                     fontSize: 22,
@@ -162,7 +164,7 @@ class _VersePageState extends State<VersePage> {
                             ),
 
                             subtitle: Text(
-                              '${verse.idn}',
+                              verse.teksIndonesia,
                               style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -171,7 +173,7 @@ class _VersePageState extends State<VersePage> {
                           ),
                         );
                       },
-                      itemCount: state.detail.ayat!.length,
+                      itemCount: state.detail.ayat.length,
                       separatorBuilder: (context, index) {
                         return const Divider();
                       },

@@ -14,10 +14,15 @@ class ApiService {
   Future<Either<String, List<SurahModel>>> getAllSurah() async {
     try {
       final response =
-          await client.get(Uri.parse('https://equran.id/api/surat'));
-      return Right(List<SurahModel>.from(
-              jsonDecode(response.body).map((x) => SurahModel.fromMap(x)))
-          .toList());
+          await client.get(Uri.parse('https://equran.id/api/v2/surat'));
+      Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      if (jsonResponse['data'] is List) {
+        return Right((jsonResponse['data'] as List)
+            .map((x) => SurahModel.fromMap(x as Map<String, dynamic>))
+            .toList());
+      } else {
+        return Left('Data is not a list');
+      }
     } catch (e) {
       return Left(e.toString());
     }
@@ -27,8 +32,14 @@ class ApiService {
       int surahNumber) async {
     try {
       final response = await client
-          .get(Uri.parse('https://equran.id/api/surat/$surahNumber'));
-      return Right(SurahDetailModel.fromMap(jsonDecode(response.body)));
+          .get(Uri.parse('https://equran.id/api/v2/surat/$surahNumber'));
+      Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      if (jsonResponse['data'] is Map) {
+        return Right(SurahDetailModel.fromMap(
+            jsonResponse['data'] as Map<String, dynamic>));
+      } else {
+        return Left('Data is not a map');
+      }
     } catch (e) {
       return Left(e.toString());
     }

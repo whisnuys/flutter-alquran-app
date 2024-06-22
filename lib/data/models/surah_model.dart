@@ -5,10 +5,10 @@ class SurahModel {
   final String nama;
   final String namaLatin;
   final int jumlahAyat;
-  final TempatTurun tempatTurun;
+  final String tempatTurun;
   final String arti;
   final String deskripsi;
-  final String audio;
+  Map<String, String> audioFull;
 
   SurahModel({
     required this.nomor,
@@ -18,34 +18,42 @@ class SurahModel {
     required this.tempatTurun,
     required this.arti,
     required this.deskripsi,
-    required this.audio,
+    required this.audioFull,
   });
 
-  factory SurahModel.fromJson(String str) =>
-      SurahModel.fromMap(json.decode(str));
+  factory SurahModel.fromJson(String str) {
+    var decodedJson = json.decode(str);
+    if (decodedJson is Map<String, dynamic>) {
+      return SurahModel.fromMap(decodedJson);
+    } else {
+      throw Exception('Decoded JSON is not a Map');
+    }
+  }
 
   String toJson() => json.encode(toMap());
 
   factory SurahModel.fromMap(Map<String, dynamic> json) => SurahModel(
         nomor: json["nomor"],
         nama: json["nama"],
-        namaLatin: json["nama_latin"],
-        jumlahAyat: json["jumlah_ayat"],
-        tempatTurun: tempatTurunValues.map[json["tempat_turun"]]!,
+        namaLatin: json["namaLatin"],
+        jumlahAyat: json["jumlahAyat"],
+        tempatTurun: json["tempatTurun"],
         arti: json["arti"],
         deskripsi: json["deskripsi"],
-        audio: json["audio"],
+        audioFull: Map.from(json["audioFull"])
+            .map((k, v) => MapEntry<String, String>(k, v)),
       );
 
   Map<String, dynamic> toMap() => {
         "nomor": nomor,
         "nama": nama,
-        "nama_latin": namaLatin,
-        "jumlah_ayat": jumlahAyat,
-        "tempat_turun": tempatTurunValues.reverse[tempatTurun],
+        "namaLatin": namaLatin,
+        "jumlahAyat": jumlahAyat,
+        "tempatTurun": tempatTurun,
         "arti": arti,
         "deskripsi": deskripsi,
-        "audio": audio,
+        "audioFull":
+            Map.from(audioFull).map((k, v) => MapEntry<String, dynamic>(k, v)),
       };
 }
 

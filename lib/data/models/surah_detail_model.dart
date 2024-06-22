@@ -1,32 +1,30 @@
 import 'dart:convert';
 
 class SurahDetailModel {
-  int? nomor;
-  String? nama;
-  String? namaLatin;
-  int? jumlahAyat;
-  String? tempatTurun;
-  String? arti;
-  String? deskripsi;
-  String? audio;
-  bool? status;
-  List<Ayat>? ayat;
-  SuratSelanjutnya? suratSelanjutnya;
-  bool? suratSebelumnya;
+  int nomor;
+  String nama;
+  String namaLatin;
+  int jumlahAyat;
+  String tempatTurun;
+  String arti;
+  String deskripsi;
+  Map<String, String> audioFull;
+  List<Ayat> ayat;
+  SuratSelanjutnya suratSelanjutnya;
+  bool suratSebelumnya;
 
   SurahDetailModel({
-    this.nomor,
-    this.nama,
-    this.namaLatin,
-    this.jumlahAyat,
-    this.tempatTurun,
-    this.arti,
-    this.deskripsi,
-    this.audio,
-    this.status,
-    this.ayat,
-    this.suratSelanjutnya,
-    this.suratSebelumnya,
+    required this.nomor,
+    required this.nama,
+    required this.namaLatin,
+    required this.jumlahAyat,
+    required this.tempatTurun,
+    required this.arti,
+    required this.deskripsi,
+    required this.audioFull,
+    required this.ayat,
+    required this.suratSelanjutnya,
+    required this.suratSebelumnya,
   });
 
   factory SurahDetailModel.fromJson(String str) =>
@@ -38,54 +36,47 @@ class SurahDetailModel {
       SurahDetailModel(
         nomor: json["nomor"],
         nama: json["nama"],
-        namaLatin: json["nama_latin"],
-        jumlahAyat: json["jumlah_ayat"],
-        tempatTurun: json["tempat_turun"],
+        namaLatin: json["namaLatin"],
+        jumlahAyat: json["jumlahAyat"],
+        tempatTurun: json["tempatTurun"],
         arti: json["arti"],
         deskripsi: json["deskripsi"],
-        audio: json["audio"],
-        status: json["status"],
-        ayat: json["ayat"] == null
-            ? []
-            : List<Ayat>.from(json["ayat"]!.map((x) => Ayat.fromMap(x))),
-        suratSelanjutnya: json["surat_selanjutnya"] == null
-            ? null
-            : SuratSelanjutnya.fromMap(json["surat_selanjutnya"]),
-        // suratSebelumnya: json["surat_sebelumnya"],
+        audioFull: Map.from(json["audioFull"])
+            .map((k, v) => MapEntry<String, String>(k, v)),
+        ayat: List<Ayat>.from(json["ayat"].map((x) => Ayat.fromMap(x))),
+        suratSelanjutnya: SuratSelanjutnya.fromMap(json["suratSelanjutnya"]),
+        suratSebelumnya: json["suratSebelumnya"],
       );
 
   Map<String, dynamic> toMap() => {
         "nomor": nomor,
         "nama": nama,
-        "nama_latin": namaLatin,
-        "jumlah_ayat": jumlahAyat,
-        "tempat_turun": tempatTurun,
+        "namaLatin": namaLatin,
+        "jumlahAyat": jumlahAyat,
+        "tempatTurun": tempatTurun,
         "arti": arti,
         "deskripsi": deskripsi,
-        "audio": audio,
-        "status": status,
-        "ayat":
-            ayat == null ? [] : List<dynamic>.from(ayat!.map((x) => x.toMap())),
-        "surat_selanjutnya": suratSelanjutnya?.toMap(),
-        "surat_sebelumnya": suratSebelumnya,
+        "audioFull":
+            Map.from(audioFull).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        "ayat": List<dynamic>.from(ayat.map((x) => x.toJson())),
+        "suratSelanjutnya": suratSelanjutnya.toJson(),
+        "suratSebelumnya": suratSebelumnya,
       };
 }
 
 class Ayat {
-  int? id;
-  int? surah;
-  int? nomor;
-  String? ar;
-  String? tr;
-  String? idn;
+  int nomorAyat;
+  String teksArab;
+  String teksLatin;
+  String teksIndonesia;
+  Map<String, String> audio;
 
   Ayat({
-    this.id,
-    this.surah,
-    this.nomor,
-    this.ar,
-    this.tr,
-    this.idn,
+    required this.nomorAyat,
+    required this.teksArab,
+    required this.teksLatin,
+    required this.teksIndonesia,
+    required this.audio,
   });
 
   factory Ayat.fromJson(String str) => Ayat.fromMap(json.decode(str));
@@ -93,45 +84,34 @@ class Ayat {
   String toJson() => json.encode(toMap());
 
   factory Ayat.fromMap(Map<String, dynamic> json) => Ayat(
-        id: json["id"],
-        surah: json["surah"],
-        nomor: json["nomor"],
-        ar: json["ar"],
-        tr: json["tr"],
-        idn: json["idn"],
+        nomorAyat: json["nomorAyat"],
+        teksArab: json["teksArab"],
+        teksLatin: json["teksLatin"],
+        teksIndonesia: json["teksIndonesia"],
+        audio: Map.from(json["audio"])
+            .map((k, v) => MapEntry<String, String>(k, v)),
       );
 
   Map<String, dynamic> toMap() => {
-        "id": id,
-        "surah": surah,
-        "nomor": nomor,
-        "ar": ar,
-        "tr": tr,
-        "idn": idn,
+        "nomorAyat": nomorAyat,
+        "teksArab": teksArab,
+        "teksLatin": teksLatin,
+        "teksIndonesia": teksIndonesia,
+        "audio": Map.from(audio).map((k, v) => MapEntry<String, dynamic>(k, v)),
       };
 }
 
 class SuratSelanjutnya {
-  int? id;
-  int? nomor;
-  String? nama;
-  String? namaLatin;
-  int? jumlahAyat;
-  String? tempatTurun;
-  String? arti;
-  String? deskripsi;
-  String? audio;
+  int nomor;
+  String nama;
+  String namaLatin;
+  int jumlahAyat;
 
   SuratSelanjutnya({
-    this.id,
-    this.nomor,
-    this.nama,
-    this.namaLatin,
-    this.jumlahAyat,
-    this.tempatTurun,
-    this.arti,
-    this.deskripsi,
-    this.audio,
+    required this.nomor,
+    required this.nama,
+    required this.namaLatin,
+    required this.jumlahAyat,
   });
 
   factory SuratSelanjutnya.fromJson(String str) =>
@@ -141,26 +121,16 @@ class SuratSelanjutnya {
 
   factory SuratSelanjutnya.fromMap(Map<String, dynamic> json) =>
       SuratSelanjutnya(
-        id: json["id"],
         nomor: json["nomor"],
         nama: json["nama"],
-        namaLatin: json["nama_latin"],
-        jumlahAyat: json["jumlah_ayat"],
-        tempatTurun: json["tempat_turun"],
-        arti: json["arti"],
-        deskripsi: json["deskripsi"],
-        audio: json["audio"],
+        namaLatin: json["namaLatin"],
+        jumlahAyat: json["jumlahAyat"],
       );
 
   Map<String, dynamic> toMap() => {
-        "id": id,
         "nomor": nomor,
         "nama": nama,
-        "nama_latin": namaLatin,
-        "jumlah_ayat": jumlahAyat,
-        "tempat_turun": tempatTurun,
-        "arti": arti,
-        "deskripsi": deskripsi,
-        "audio": audio,
+        "namaLatin": namaLatin,
+        "jumlahAyat": jumlahAyat,
       };
 }
