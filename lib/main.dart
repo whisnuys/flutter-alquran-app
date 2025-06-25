@@ -1,9 +1,11 @@
-import 'package:alquran_app/data/api_service.dart';
+import 'package:alquran_app/data/datasources/surah_remote_datasource.dart';
+import 'package:alquran_app/data/repositories/quran_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'injection_container.dart' as di;
 
 import 'cubit/surah/surah_cubit.dart';
 import 'cubit/verse/verse_cubit.dart';
@@ -12,6 +14,7 @@ import 'ui/splash_page.dart';
 import 'ui/surah_page.dart';
 
 void main() {
+  di.init();
   runApp(const MyApp());
 }
 
@@ -28,13 +31,11 @@ class MyApp extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => SurahCubit(
-                ApiService(client: http.Client()),
-              ),
+              create: (context) => di.locator<SurahCubit>(),
             ),
             BlocProvider(
               create: (context) => VerseCubit(
-                ApiService(client: http.Client()),
+                SurahRemoteDatasource(client: http.Client()),
               ),
             ),
           ],

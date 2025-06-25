@@ -14,8 +14,11 @@ dependencies:
   flutter_bloc: ^8.1.6
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.0.10+1
+  get_it: ^8.0.3
   google_fonts: ^6.2.1
   http: ^1.2.1
+  path: null
+  sqflite: null
 
 dev_dependencies:
   flutter_lints: ^3.0.0

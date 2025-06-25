@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
-import 'models/surah_detail_model.dart';
-import 'models/surah_model.dart';
+import '../models/surah_detail_model.dart';
+import '../models/surah_model.dart';
 
-class ApiService {
+class SurahRemoteDatasource {
   final http.Client client;
 
-  ApiService({required this.client});
+  SurahRemoteDatasource({required this.client});
 
   Future<Either<String, List<SurahModel>>> getAllSurah() async {
     try {

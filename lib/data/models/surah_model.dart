@@ -40,8 +40,9 @@ class SurahModel {
         tempatTurun: json["tempatTurun"],
         arti: json["arti"],
         deskripsi: json["deskripsi"],
-        audioFull: Map.from(json["audioFull"])
-            .map((k, v) => MapEntry<String, String>(k, v)),
+        // audioFull: Map.from(json["audioFull"])
+        //     .map((k, v) => MapEntry<String, String>(k, v)),
+        audioFull: Map<String, String>.from(json["audioFull"] ?? {}),
       );
 
   Map<String, dynamic> toMap() => {
@@ -52,8 +53,9 @@ class SurahModel {
         "tempatTurun": tempatTurun,
         "arti": arti,
         "deskripsi": deskripsi,
-        "audioFull":
-            Map.from(audioFull).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        // "audioFull":
+        //     Map.from(audioFull).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        "audio": audioFull['05'] ?? '',
       };
 }
 
