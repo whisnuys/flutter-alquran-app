@@ -73,7 +73,7 @@ class _SurahPageState extends State<SurahPage> {
                               height: 24.h,
                             ),
                             Text(
-                              "Al-Baqarah",
+                              "-",
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontSize: 20.sp,
@@ -81,10 +81,11 @@ class _SurahPageState extends State<SurahPage> {
                               ),
                             ),
                             Text(
-                              "Ayat 80",
+                              "Fitur ini akan segera hadir",
                               style: TextStyle(
                                 color: AppColors.white,
-                                fontSize: 16.sp,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
