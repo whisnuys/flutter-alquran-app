@@ -1,6 +1,7 @@
 import 'package:alquran_app/data/datasources/surah_remote_datasource.dart';
 import 'package:alquran_app/data/repositories/quran_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +16,14 @@ import 'ui/surah_page.dart';
 
 void main() {
   di.init();
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ),
+  );
   runApp(const MyApp());
 }
 
@@ -34,9 +43,7 @@ class MyApp extends StatelessWidget {
               create: (context) => di.locator<SurahCubit>(),
             ),
             BlocProvider(
-              create: (context) => VerseCubit(
-                SurahRemoteDatasource(client: http.Client()),
-              ),
+              create: (context) => di.locator<VerseCubit>(),
             ),
           ],
           child: MaterialApp(

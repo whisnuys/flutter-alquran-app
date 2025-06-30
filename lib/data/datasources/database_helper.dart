@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   static const _databaseName = "alquran.db";
-  static const _databaseVersion = 1;
+  static const _databaseVersion = 2;
   static const tableSurah = 'surah';
   static const columnNomor = 'nomor';
   static const columnNama = 'nama';
@@ -13,6 +13,15 @@ class DatabaseHelper {
   static const columnArti = 'arti';
   static const columnDeskripsi = 'deskripsi';
   static const columnAudio = 'audio';
+
+  static const tableAyat = 'ayat';
+  static const columnAyatId = 'id';
+  static const columnAyatNomorAyat = 'nomorAyat';
+  static const columnAyatTeksArab = 'teksArab';
+  static const columnAyatTeksLatin = 'teksLatin';
+  static const columnAyatTeksIndonesia = 'teksIndonesia';
+  static const columnAyatAudio = 'audio';
+  static const columnAyatSurahNomor = 'surah_nomor';
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -30,6 +39,7 @@ class DatabaseHelper {
       path,
       version: _databaseVersion,
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
   }
 
@@ -46,5 +56,35 @@ class DatabaseHelper {
         $columnAudio TEXT NOT NULL
       )
     ''');
+
+    await db.execute('''
+      CREATE TABLE $tableAyat (
+        $columnAyatId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $columnAyatNomorAyat INTEGER NOT NULL,
+        $columnAyatTeksArab TEXT NOT NULL,
+        $columnAyatTeksLatin TEXT NOT NULL,
+        $columnAyatTeksIndonesia TEXT NOT NULL,
+        $columnAyatAudio TEXT NOT NULL,
+        $columnAyatSurahNomor INTEGER NOT NULL,
+        FOREIGN KEY ($columnAyatSurahNomor) REFERENCES $tableSurah ($columnNomor) ON DELETE CASCADE
+      )
+    ''');
+  }
+
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('''
+        CREATE TABLE $tableAyat (
+          $columnAyatId INTEGER PRIMARY KEY AUTOINCREMENT,
+          $columnAyatNomorAyat INTEGER NOT NULL,
+          $columnAyatTeksArab TEXT NOT NULL,
+          $columnAyatTeksLatin TEXT NOT NULL,
+          $columnAyatTeksIndonesia TEXT NOT NULL,
+          $columnAyatAudio TEXT NOT NULL,
+          $columnAyatSurahNomor INTEGER NOT NULL,
+          FOREIGN KEY ($columnAyatSurahNomor) REFERENCES $tableSurah ($columnNomor) ON DELETE CASCADE
+        )
+      ''');
+    }
   }
 }

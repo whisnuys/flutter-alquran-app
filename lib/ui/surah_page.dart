@@ -120,110 +120,117 @@ class _SurahPageState extends State<SurahPage> {
                   ],
                 ),
               ),
-              SliverToBoxAdapter(
-                child: BlocBuilder<SurahCubit, SurahState>(
-                    builder: (context, state) {
-                  if (state is SurahLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (state is SurahLoaded) {
-                    return ListView.builder(
-                      padding: const EdgeInsets.only(top: 0),
-                      controller: scrollController,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        final surah = state.listSurah[index];
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return VersePage(surah: surah);
-                                },
-                              ),
-                            );
-                          },
-                          child: ListTile(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 24.w, vertical: 0),
-                            leading: Container(
-                              width: 36.w,
-                              height: 36.h,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage(
-                                    'assets/number_frame.png',
+              SliverFillRemaining(
+                child: TabBarView(
+                  children: [
+                    BlocBuilder<SurahCubit, SurahState>(
+                        builder: (context, state) {
+                      if (state is SurahLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (state is SurahLoaded) {
+                        return ListView.builder(
+                          padding: const EdgeInsets.only(top: 0),
+                          controller: scrollController,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            final surah = state.listSurah[index];
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return VersePage(surah: surah);
+                                    },
+                                  ),
+                                );
+                              },
+                              child: ListTile(
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 24.w, vertical: 0),
+                                leading: Container(
+                                  width: 36.w,
+                                  height: 36.h,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: AssetImage(
+                                        'assets/number_frame.png',
+                                      ),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '${surah.nomor}',
+                                      style: const TextStyle(
+                                          color: AppColors.primary),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  '${surah.nomor}',
-                                  style:
-                                      const TextStyle(color: AppColors.primary),
-                                ),
-                              ),
-                            ),
-                            title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            surah.namaLatin,
+                                            style: TextStyle(
+                                              fontSize: 14.sp,
+                                              color: AppColors.black,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            surah.arti,
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: AppColors.grey,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
                                       Text(
-                                        surah.namaLatin,
+                                        surah.nama,
                                         style: TextStyle(
                                           fontSize: 14.sp,
-                                          color: AppColors.black,
+                                          color: AppColors.primary,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      Text(
-                                        surah.arti,
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: AppColors.grey,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  Text(
-                                    surah.nama,
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: AppColors.primary,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ]),
-                            // title: Text('${surah.namaLatin} - ${surah.nama}'),
-                            // subtitle:
-                            //     Text('${surah.arti}, ${surah.jumlahAyat} Verse.'),
-                          ),
+                                    ]),
+                                // title: Text('${surah.namaLatin} - ${surah.nama}'),
+                                // subtitle:
+                                //     Text('${surah.arti}, ${surah.jumlahAyat} Verse.'),
+                              ),
+                            );
+                          },
+                          itemCount: state.listSurah.length,
                         );
-                      },
-                      itemCount: state.listSurah.length,
-                    );
-                  }
-                  if (state is SurahError) {
-                    return Center(
-                      child: Text(state.message),
-                    );
-                  }
+                      }
+                      if (state is SurahError) {
+                        return Center(
+                          child: Text(state.message),
+                        );
+                      }
 
-                  return const Center(
-                    child: Text('No Data'),
-                  );
-                }),
+                      return const Center(
+                        child: Text('No Data'),
+                      );
+                    }),
+                    const Center(
+                      child: Text('Fitur Juz akan segera hadir!'),
+                    )
+                  ],
+                ),
               ),
             ],
           ),

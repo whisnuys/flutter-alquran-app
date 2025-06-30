@@ -3,6 +3,8 @@ import 'package:alquran_app/data/datasources/surah_local_datasource.dart';
 import 'package:alquran_app/data/models/surah_model.dart';
 import 'package:dartz/dartz.dart';
 
+import '../models/surah_detail_model.dart';
+
 class QuranRepository {
   final SurahRemoteDatasource remoteDataSource;
   final SurahLocalDatasource localDataSource;
@@ -38,6 +40,41 @@ class QuranRepository {
         await localDataSource.saveAllSurah(surahList);
         // Kemudian kembalikan datanya
         return Right(surahList);
+      },
+    );
+  }
+
+  Future<Either<String, SurahDetailModel>> getDetailSurah(
+      int surahNumber) async {
+    // 1. Coba ambil dari cache lokal dulu
+    try {
+      final cachedSurahDetail =
+          await localDataSource.getDetailSurahFromCache(surahNumber);
+      if (cachedSurahDetail != null) {
+        print("Detail Surah #$surahNumber diambil dari CACHE");
+        return Right(cachedSurahDetail);
+      }
+    } catch (e) {
+      print("Gagal mengambil detail dari cache: $e");
+      // Jangan hentikan proses, lanjutkan untuk fetch dari API
+    }
+
+    // 2. Jika cache kosong atau error, panggil remote data source
+    print("Cache detail surah #$surahNumber kosong, mengambil dari API...");
+    final remoteResult = await remoteDataSource.getDetailSurah(surahNumber);
+
+    // 3. Gunakan .fold untuk menangani hasil Either
+    return remoteResult.fold(
+      (failureMessage) {
+        // Jika dari API gagal, teruskan pesan error-nya
+        return Left(failureMessage);
+      },
+      (surahDetail) async {
+        // Jika dari API berhasil, lakukan caching
+        print("Berhasil mengambil detail dari API, menyimpan ke cache...");
+        await localDataSource.cacheDetailSurah(surahDetail);
+        // Kemudian kembalikan datanya
+        return Right(surahDetail);
       },
     );
   }

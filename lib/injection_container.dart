@@ -1,4 +1,5 @@
 import 'package:alquran_app/cubit/surah/surah_cubit.dart';
+import 'package:alquran_app/cubit/verse/verse_cubit.dart';
 import 'package:alquran_app/data/datasources/surah_remote_datasource.dart';
 import 'package:alquran_app/data/datasources/surah_local_datasource.dart';
 import 'package:alquran_app/data/repositories/quran_repository.dart';
@@ -12,6 +13,7 @@ void init() {
   // BLOC / CUBIT
   // `registerFactory` berarti instance baru dibuat setiap kali di-request
   locator.registerFactory(() => SurahCubit(locator()));
+  locator.registerFactory(() => VerseCubit(locator()));
 
   // REPOSITORY
   // `registerLazySingleton` berarti instance hanya dibuat sekali saat pertama kali dibutuhkan
