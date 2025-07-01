@@ -14,6 +14,14 @@ A simple and beautiful Al-Quran app built with Flutter. Read the holy Quran on t
 - **Murottal Audio:** (Work in Progress) Listen to the beautiful recitation of the Quran.
 - **Bookmarking:** (Work in Progress) Save your favorite verses for later reference.
 
+## 💻 Technology Stack
+
+- **Framework:** [Flutter](https://flutter.dev/)
+- **Language:** [Dart](https://dart.dev/)
+- **API:** [EQuran.id API](https://equran.id/)
+- **State Management:** [Bloc (Cubit)](https://bloclibrary.dev/)
+- **Local Storage:** [sqflite](https://pub.dev/packages/sqflite)
+
 ## 📸 Screenshots
 
 | Surah Page & Verse Page                                                 |
@@ -45,20 +53,3 @@ A simple and beautiful Al-Quran app built with Flutter. Read the holy Quran on t
     ```bash
     flutter run
     ```
-
-## 💻 Technology Stack
-
-- **Framework:** [Flutter](https://flutter.dev/)
-- **Language:** [Dart](https://dart.dev/)
-- **API:** [EQuran.id API](https://equran.id/)
-- **State Management:** [Bloc (Cubit)](https://bloclibrary.dev/)
-- **Local Storage:** [sqflite](https://pub.dev/packages/sqflite)
-
-## 🚀 Roadmap
-
-Here are some of the features we plan to add in the future:
-
-- [ ] Fix Last Read feature
-- [ ] Add bookmarking functionality
-- [ ] Integrate at least one Murottal audio
-- [ ] Implement a bottom navigation bar for easier navigation
