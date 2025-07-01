@@ -39,7 +39,7 @@ A simple and beautiful Al-Quran app built with Flutter. Read the holy Quran on t
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/whisnuys/flutter-alquran-app.git](https://github.com/whisnuys/flutter-alquran-app.git)
+    git clone https://github.com/whisnuys/flutter-alquran-app.git
     ```
 2.  **Navigate to the project directory:**
     ```bash
